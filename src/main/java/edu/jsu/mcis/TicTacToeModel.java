@@ -1,5 +1,7 @@
 package edu.jsu.mcis;
 
+import sun.invoke.empty.Empty;
+
 public class TicTacToeModel {
     
     private Mark[][] board; /* Game board */
@@ -76,6 +78,12 @@ public class TicTacToeModel {
         /* Initialize board by filling every square with empty marks */
         
         // INSERT YOUR CODE HERE
+        for (int i=0; i < board.length; i++){
+            for (int j=0; j < board[i].length; j++){
+                board[i][j]=Mark.EMPTY;
+            }
+        }
+        
         
     }
 	
@@ -88,8 +96,20 @@ public class TicTacToeModel {
            other player before returning TRUE.  Otherwise, return FALSE. */
         
         // INSERT YOUR CODE HERE
-        
-        return false; // remove this line later!
+        if(xTurn && isValidSquare(row, col)&& !isSquareMarked(row, col)){
+            board[row][col]=Mark.X;
+            xTurn=false;
+            return true;
+
+        }
+        else if(!xTurn && isValidSquare(row, col)&& !isSquareMarked(row, col)){
+            board[row][col]=Mark.O;
+            xTurn=true;
+            return true;
+
+        }
+        else{
+        return false; }// remove this line later!
         
     }
 	
@@ -98,8 +118,11 @@ public class TicTacToeModel {
         /* Return TRUE if the specified location is within the bounds of the board */
         
         // INSERT YOUR CODE HERE
-
-        return false; // remove this line later!
+       if ((row >=0)&&(row<width)){
+        if ((col >=0)&&(col<width)){
+            return true;
+        }}
+            return false; //remove this line later!
         
     }
 	
@@ -108,8 +131,11 @@ public class TicTacToeModel {
         /* Return TRUE if the square at specified location is marked */
         
         // INSERT YOUR CODE HERE
-
-        return false; // remove this line later!
+        if (board[row][col]==Mark.EMPTY){
+            return false; 
+        }
+        else 
+            return true;
             
     }
 	
@@ -117,9 +143,7 @@ public class TicTacToeModel {
         
         /* Return the mark from the square at the specified location */
         
-        // INSERT YOUR CODE HERE
-
-        return null; // remove this line later!
+        return board[row][col];
             
     }
 	
@@ -129,9 +153,17 @@ public class TicTacToeModel {
            TIE, or if the game is not over.  Return the corresponding Result
            value */
         
-        // INSERT YOUR CODE HERE
-
-        return null; // remove this line later!
+        if (isMarkWin(Mark.X)){
+            return Result.X;
+        }
+        else if (isMarkWin(Mark.O)){
+            return Result.O;
+        }
+        else if (isTie()){
+            return Result.TIE;
+        }
+        else
+            return null; // remove this line later!
         
     }
 	
@@ -139,37 +171,70 @@ public class TicTacToeModel {
         
         /* Check the squares of the board to see if the specified mark is the
            winner */
-        
-        // INSERT YOUR CODE HERE
-
-        return false; // remove this line later!
+           boolean win=true;
+        for (int i = 0; i < width; ++i){
+			for(int j = 0; j < width; ++j){
+				if (!board[j][i].equals(mark)){
+					win = false;
+				}
+			}
+			if(win==true){
+				return true;
+			}
+			
+			
+		}
+		for (int i = 0; i < width; ++i){
+			for(int j = 0; j < width; ++j){
+				if (!board[i][j].equals(mark)){
+					win = false;
+				}
+			}
+			if (win==true){
+				return true;
+			}
+		}
+		for(int i = 0; i < width; ++i){
+			if(!board[i][i].equals(mark)){
+				win = false;
+			}
+			
+		}
+		if (win==true){
+			return true;
+		}
+		
+		
+		for(int i = 0; i < width; ++i){
+			if(!board[i][width-1-i].equals(mark)){
+				win = false;
+			}
+	
+		}
+		if (win==true){
+			return true;
+		}
+        else return false; 
 
     }
 	
     private boolean isTie() {
         
         /* Check the squares of the board to see if the game is a tie */
-        
-        // INSERT YOUR CODE HERE
+        int counter  = 0;
+		for (int row = 0; row < width; row++){
+			for (int col = 0; col < width; col++){
+				if (board[row][col] != Mark.EMPTY){
+					counter++;
+				}
+			}
+		}
+		if (counter == (width*width)){
+			return true;
+        }
+        return false;
 
-        return false; // remove this line later!
-        
-    }
 
-    public boolean isGameover() {
-        
-        /* Return TRUE if the game is over */
-        
-        return (Result.NONE != getResult());
-        
-    }
-
-    public boolean isXTurn() {
-        
-        /* Getter for xTurn */
-        
-        return xTurn;
-        
     }
 
     public int getWidth() {
