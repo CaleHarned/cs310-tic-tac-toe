@@ -1,7 +1,5 @@
 package edu.jsu.mcis;
 
-import sun.invoke.empty.Empty;
-
 public class TicTacToeModel {
     
     private Mark[][] board; /* Game board */
@@ -162,8 +160,8 @@ public class TicTacToeModel {
         else if (isTie()){
             return Result.TIE;
         }
-        else
-            return null; // remove this line later!
+        else{
+            return Result.NONE;} 
         
     }
 	
@@ -171,71 +169,91 @@ public class TicTacToeModel {
         
         /* Check the squares of the board to see if the specified mark is the
            winner */
-           boolean win=true;
-        for (int i = 0; i < width; ++i){
-			for(int j = 0; j < width; ++j){
-				if (!board[j][i].equals(mark)){
-					win = false;
+           int spacecounter = 0;
+           //check horizontal
+        for(int row = 0; row < width; row++){
+            for(int col = 0; col< width; col++){
+                if(getMark(row, col) == mark){
+                        spacecounter++;
+                }
+				else{
+					spacecounter = 0;
 				}
-			}
-			if(win==true){
-				return true;
-			}
-			
-			
-		}
-		for (int i = 0; i < width; ++i){
-			for(int j = 0; j < width; ++j){
-				if (!board[i][j].equals(mark)){
-					win = false;
+                if(spacecounter == (width)){
+                    return true;
+                }
+            }
+            spacecounter = 0;
+        } 
+		spacecounter = 0;
+        
+            //check vertical
+        for(int col = 0; col < width; col++){
+            for(int row = 0; row < width; row++){
+                if(getMark(row, col) == mark){
+                        spacecounter++;
+                }
+                else{
+                    spacecounter = 0;
+                }
+                if(spacecounter == (width)){
+                    return true;
+                }
+            }
+            spacecounter = 0;
+        }
+		spacecounter = 0;
+        //check diagonal 
+        for(int row = 0; row < width; row++){
+                if(getMark(row, row) == mark){
+                   spacecounter++; 
+                }
+				else{
+					spacecounter = 0;
 				}
-			}
-			if (win==true){
-				return true;
-			}
-		}
-		for(int i = 0; i < width; ++i){
-			if(!board[i][i].equals(mark)){
-				win = false;
-			}
-			
-		}
-		if (win==true){
-			return true;
-		}
-		
-		
-		for(int i = 0; i < width; ++i){
-			if(!board[i][width-1-i].equals(mark)){
-				win = false;
-			}
-	
-		}
-		if (win==true){
-			return true;
-		}
-        else return false; 
+                if(spacecounter == (width)){
+                    return true;
+                }
+        }
+        spacecounter = 0;
 
+        //check other diagonal
+		for(int i = 0; i < width; i++){
+			if(getMark(i, width-1-i) == mark){
+				spacecounter++;
+			}
+			else{
+				spacecounter = 0;
+			}
+			if(spacecounter == (width)){
+				return true;
+			}
+		}
+		
+		spacecounter = 0;
+        return false;
     }
+    
 	
     private boolean isTie() {
-        
-        /* Check the squares of the board to see if the game is a tie */
-        int counter  = 0;
-		for (int row = 0; row < width; row++){
-			for (int col = 0; col < width; col++){
-				if (board[row][col] != Mark.EMPTY){
-					counter++;
-				}
-			}
-		}
-		if (counter == (width*width)){
-			return true;
+        //check if tie
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < width; j++){
+                if(getMark(i, j) == Mark.EMPTY){
+                        return false;
+                }
+            }
         }
-        return false;
-
-
+		if(isMarkWin(Mark.X) || isMarkWin(Mark.O)){
+			return false;
+		}
+        else{
+			return true;
+		}
     }
+
+
+    
 
     public int getWidth() {
         

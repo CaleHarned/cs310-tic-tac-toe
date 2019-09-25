@@ -27,18 +27,18 @@ public class TicTacToeView {
             System.out.println("It is X's turn. To place an X on the board, Please enter a row number followed by a space then a column number.");
             String input=keyboard.nextLine();  
             String[] splitinput=input.split(" ");
-            int row=parseInt(splitinput[0]);
-            int col=parseInt(splitinput[1]);
+            int row=Integer.parseInt(splitinput[0]);
+            int col=Integer.parseInt(splitinput[1]);
             TicTacToeMove nextMove=new TicTacToeMove(row, col);
             return nextMove;
 
         }
-        if (isXturn==false){
+        if (isXTurn==false){
             System.out.println("It is O's turn. To place an 0 on the board, Please enter a row number followed by a space then a column number.");
             String input=keyboard.nextLine();  
             String[] splitinput=input.split(" ");
-            int row=parseInt(splitinput[0]);
-            int col=parseInt(splitinput[1]);
+            int row=Integer.parseInt(splitinput[0]);
+            int col=Integer.parseInt(splitinput[1]);
             TicTacToeMove nextMove=new TicTacToeMove(row, col);
             return nextMove;
         }
