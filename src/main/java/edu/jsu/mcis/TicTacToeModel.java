@@ -271,6 +271,10 @@ public class TicTacToeModel {
         /* Output the board contents as a string (see examples) */
         
         // INSERT YOUR CODE HERE
+        output.append("012\n");
+        output.append("0 "+getMark(0,0)+getMark(0,1)+getMark(0,2)+"\n");
+        output.append("1 "+getMark(1,0)+getMark(1,1)+getMark(2,2)+"\n");
+        output.append("2 "+getMark(2,0)+getMark(2,1)+getMark(2,2)+"\n");
         
         return output.toString();
         
