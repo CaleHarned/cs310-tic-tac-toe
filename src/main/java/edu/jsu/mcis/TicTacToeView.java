@@ -16,15 +16,20 @@ public class TicTacToeView {
         
     }
 	
-    public TicTacToeMove getNextMove(boolean isXTurn) {
+    public TicTacToeMove getNextMove(boolean xTurn) {
         
         /* Prompt the player to enter the row and the column of their next move.
            Return as a TicTacToeMove object. */
         
         // INSERT YOUR CODE HERE
 
-        if (isXTurn==true){
+        if (xTurn==true){
             System.out.println("It is X's turn. To place an X on the board, Please enter a row number followed by a space then a column number.");
+        }
+
+        else if (xTurn==false){
+            System.out.println("It is 0's turn. To place an X on the board, Please enter a row number followed by a space then a column number.");
+        }
             String input=keyboard.nextLine();  
             String[] splitinput=input.split(" ");
             int row=Integer.parseInt(splitinput[0]);
@@ -32,20 +37,7 @@ public class TicTacToeView {
             TicTacToeMove nextMove=new TicTacToeMove(row, col);
             return nextMove;
 
-        }
-        if (isXTurn==false){
-            System.out.println("It is O's turn. To place an 0 on the board, Please enter a row number followed by a space then a column number.");
-            String input=keyboard.nextLine();  
-            String[] splitinput=input.split(" ");
-            int row=Integer.parseInt(splitinput[0]);
-            int col=Integer.parseInt(splitinput[1]);
-            TicTacToeMove nextMove=new TicTacToeMove(row, col);
-            return nextMove;
-        }
         
-
-        return null; // remove this line later!
-
     }
 
     public void showInputError() {
